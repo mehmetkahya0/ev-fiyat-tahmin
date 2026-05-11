@@ -13,14 +13,109 @@ st.set_page_config(page_title="Ev Fiyat Siniflandirma", page_icon="🏠", layout
 # ---------- CUSTOM CSS ----------
 st.markdown("""
 <style>
-    .main-header {font-size:2.5rem; font-weight:800; background:linear-gradient(90deg,#e74c3c,#f39c12,#2ecc71);
-        -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-align:center; margin-bottom:0.5rem;}
-    .metric-card {background:linear-gradient(135deg,#1a1a2e,#16213e); padding:1.2rem; border-radius:12px;
-        text-align:center; color:white; border:1px solid #333;}
-    .metric-val {font-size:2rem; font-weight:800; color:#00d4ff;}
-    .metric-label {font-size:0.85rem; color:#aaa; margin-top:4px;}
-    .stTabs [data-baseweb="tab-list"] {gap:8px;}
-    .stTabs [data-baseweb="tab"] {background:#1a1a2e; color:white; border-radius:8px; padding:8px 16px;}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --ink: #0f172a;
+    --muted: #475569;
+    --soft: #e2e8f0;
+    --accent: #e74c3c;
+    --accent-2: #f39c12;
+    --accent-3: #2ecc71;
+    --panel: #0f172a;
+    --panel-2: #1e293b;
+}
+
+html, body, [class*="css"]  {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.block-container {
+    padding-top: 2.2rem;
+    padding-bottom: 3rem;
+    background: white;
+}
+
+.main-header {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.7rem;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    color: #0f172a;
+    text-align: center;
+    margin-bottom: 0.4rem;
+}
+
+.hero-subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-top: 0.2rem;
+}
+
+.section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+}
+
+.metric-card {
+    background: black;
+    padding: 1.2rem;
+    border-radius: 14px;
+    text-align: center;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.18);
+    font-weight: 600 !important;
+}
+
+.metric-val {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #7dd3fc;
+}
+
+.metric-label {
+    font-size: 0.85rem;
+    color: #cbd5f5;
+    margin-top: 4px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #0f172a;
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+}
+
+.soft-panel {
+    background: white;
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--soft);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.stTabs [data-baseweb="tab-list"] {gap: 8px;}
+.stTabs [data-baseweb="tab"] {
+    background: #0f172a;
+    color: white;
+    border-radius: 8px;
+    padding: 8px 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0f172a 0%, #1f2937 100%);
+}
+section[data-testid="stSidebar"] * {color: #e2e8f0;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -37,8 +132,8 @@ df, raw_df, res = get_data()
 # ---------- SIDEBAR ----------
 st.sidebar.image("https://img.icons8.com/3d-fluency/94/home.png", width=80)
 st.sidebar.title("🏠 Navigasyon")
-page = st.sidebar.radio("Sayfa Sec:", ["📌 Proje Ozeti", "📊 Veri Analizi", "🤖 Model Sonuclari",
-                                        "📈 Gorsellestirmeler", "🔮 Tahmin Yap", "📋 Teknik Bilgi"])
+page = st.sidebar.radio("Sayfa Secin:", ["📌 Proje Ozeti", "📊 Veri Analizi", "🤖 Model Sonuclari",
+                                         "📈 Gorsellestirmeler", "🔮 Tahmin Yap", "📋 Teknik Bilgi"])
 st.sidebar.markdown("---")
 st.sidebar.info(f"**Veri:** {len(df):,} satir | **Ozellik:** {len(res['feature_names'])} | **Sinif:** 3")
 if res.get("fast_mode"):
@@ -46,8 +141,22 @@ if res.get("fast_mode"):
 
 # ========== PAGE: PROJE OZETI ==========
 if page == "📌 Proje Ozeti":
-    st.markdown('<p class="main-header">Istanbul Ev Fiyat Siniflandirmasi</p>', unsafe_allow_html=True)
-    st.markdown("### Makine Ogrenmesi Final Projesi")
+    st.markdown('<h1 class="main-header">İstanbul Ev Fiyat Sınıflandırması</h1>', unsafe_allow_html=True)
+    st.markdown('<h2 class="hero-subtitle">Makine Öğrenmesi Final Projesi | 2026</h2>', unsafe_allow_html=True)
+    st.markdown('<div class="hero-subtitle" style="font-weight:600;">Mehmet Kahya | Boğaç Övuç</div>', unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class="soft-panel" style="text-align:center;">
+            <span class="badge">Canli Demo</span>
+            <span style="margin:0 10px; color:#0f172a; font-weight:600;">Model: XGBoost + Random Forest</span>
+            <span style="margin:0 10px; color:#0f172a; font-weight:600;">Veri: 2026 guncel</span>
+            <span style="margin:0 10px; color:#0f172a; font-weight:600;">Sinif: 3</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.markdown("<br>", unsafe_allow_html=True)
     
     c1, c2, c3, c4 = st.columns(4)
     with c1:
@@ -62,11 +171,11 @@ if page == "📌 Proje Ozeti":
     st.markdown("---")
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("#### 🎯 Proje Amaci")
+        st.markdown('<div class="section-title">🎯 Proje Amaci</div>', unsafe_allow_html=True)
         st.write("""Istanbul'daki satilik evlerin fiyatlarini **Ekonomik**, **Orta** ve **Luks** 
-        olarak siniflandiran bir ML sistemi. TuIK enflasyon verileriyle fiyatlar 2026'ya guncellendi.""")
+        olarak siniflandiran bir ML sistemi. TUIK enflasyon verileriyle fiyatlar 2026'ya guncellendi.""")
     with col2:
-        st.markdown("#### ⚙ Kullanilan Yontemler")
+        st.markdown('<div class="section-title">⚙ Kullanilan Yontemler</div>', unsafe_allow_html=True)
         st.write("- Random Forest (Bagging)\n- XGBoost (Gradient Boosting)\n- Feature Engineering\n- StandardScaler + Frequency Encoding")
 
 # ========== PAGE: VERI ANALIZI ==========
@@ -130,8 +239,8 @@ elif page == "🤖 Model Sonuclari":
 elif page == "📈 Gorsellestirmeler":
     st.header("📈 Interaktif Gorsellestirmeler")
     
-    viz = st.selectbox("Grafik Sec:", ["Sinif Dagilimi","Ilcelere Gore Fiyat","Ozellik Onem Duzeyleri",
-                                       "Korelasyon Haritasi","Violin Plot","Scatter Plot"])
+    viz = st.selectbox("Grafik Secin:", ["Sinif Dagilimi","Ilcelere Gore Fiyat","Ozellik Onem Duzeyleri",
+                                        "Korelasyon Haritasi","Violin Plot","Scatter Plot"])
     
     if viz == "Sinif Dagilimi":
         c1, c2 = st.columns(2)
@@ -232,7 +341,7 @@ elif page == "🔮 Tahmin Yap":
     with c4:
         bathrooms = st.slider("🚿 Banyo Sayisi", bath_min, bath_max, bath_med)
         wcs = st.slider("🚽 WC Sayisi", wc_min, wc_max, wc_med)
-        budget = st.number_input("💰 Butce (opsiyonel)", min_value=0, value=0, step=250000)
+        budget = st.number_input("💰 Butce (Opsiyonel)", min_value=0, value=0, step=250000)
 
     st.subheader("⚙ Yapisal ve Donanim Ozellikleri")
     d1, d2, d3 = st.columns(3)
@@ -440,15 +549,15 @@ elif page == "🔮 Tahmin Yap":
         class_range = res["class_ranges"].get(sinif, {})
         if class_range:
             st.info(
-                f"**{sinif} sinifi fiyat bandi (egitim verisi):** "
+                f"**{sinif} Sinifi Fiyat Bandi (Egitim Verisi):** "
                 f"₺{class_range['min']:,.0f} - ₺{class_range['max']:,.0f} | Medyan: ₺{class_range['median']:,.0f}"
             )
         if budget > 0:
             fark = budget - fiyat_tahmin
             if fark >= 0:
-                st.success(f"Butceye gore yaklasik **₺{fark:,.0f}** pay kaliyor.")
+                st.success(f"Butceye Gore Yaklasik **₺{fark:,.0f}** Pay Kaliyor.")
             else:
-                st.error(f"Butceye gore yaklasik **₺{abs(fark):,.0f}** ek kaynak gerekiyor.")
+                st.error(f"Butceye Gore Yaklasik **₺{abs(fark):,.0f}** Ek Kaynak Gerekiyor.")
 
         tab_s, tab_i, tab_b = st.tabs(["📊 Olasiliklar", "🏘 Ilce Analizi", "🔍 Benzer ve Alternatifler"])
 
